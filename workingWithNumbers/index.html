@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>working with numbers</title>
+</head>
+<body>
+    <h2>Click Button to Perform Several Operations</h2>
+    <form>
+        <br>
+        <input type="number" id="number" name="number" required>
+        <br><br>
+
+        <input type="button" value="Odd or Even" id="oddOrEven">
+        <input type="button" value="Factorial" id="factorial">
+        <input type="button" value="table" id="table">
+        <input type="button" value="words" id="words">
+
+        
+    </form>
+
+    <br><br>
+    <div id="tablePrint" hidden>
+        <h1>Table</h1>
+        <br>
+    </div>
+
+        <h1 id="numToWord" hidden>Num to Word</h1>
+        <br>
+
+    <script>
+        function validateOddOrEven(){
+            let number = document.getElementById('number').value
+            number = parseInt(number)
+
+            if(number%2==0){
+                alert("This is an even number")
+            }
+            else{
+                alert("This is an odd number")
+            }
+        }
+
+        function factorialNumber(){
+            let number = document.getElementById('number').value
+            number = parseInt(number)
+            
+            if (number < 0) {
+                alert("Factorial is not defined for negative numbers.")
+                return false
+            }
+
+            let result = 1;
+            for (let i = 1; i <= number; i++) {
+                result *= i;
+            }
+            
+            alert(`The factorial of ${number} is ${result}`)
+        }
+
+        function tableOfNumber(){
+            let number = document.getElementById('number').value
+            number = parseInt(number)
+
+            let table = document.getElementById('tablePrint')
+            table.hidden = false
+
+            for(let i = 1; i<11; i++){
+                let row = document.createElement('div');
+                row.textContent = `${number} X ${i} = ${number * i}`;
+                table.appendChild(row);
+            }
+        }
+
+        function numToWord() {
+            const number = document.getElementById('number').value;
+            let numToWord = document.getElementById('numToWord');
+            numToWord.hidden = false;
+        
+            if (!number) {
+                numToWord.innerText = "No valid number found.";
+                return;
+            }
+        
+            // Parse the entire number, not just the first digit
+            const num = parseInt(number, 10);
+        
+            if (isNaN(num) || num < 0 || num > 999) {
+                numToWord.innerText = "Number out of range.";
+                return;
+            }
+        
+            const ones = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"];
+            const teens = ["Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"];
+            const tens = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
+        
+            let words = "";
+        
+            if (num === 0) {
+                words = "Zero";
+            } else {
+                // Handle hundreds place
+                if (Math.floor(num / 100) > 0) {
+                    words += ones[Math.floor(num / 100)] + " Hundred ";
+                }
+        
+                // Get the last two digits
+                const lastTwoDigits = num % 100;
+        
+                // Handle teens (10-19)
+                if (lastTwoDigits >= 10 && lastTwoDigits < 20) {
+                    words += teens[lastTwoDigits - 10];
+                } 
+                // Handle tens place (20, 30, ...)
+                else if (lastTwoDigits >= 20) {
+                    words += tens[Math.floor(lastTwoDigits / 10)];
+                    if (lastTwoDigits % 10 > 0) {
+                        words += " " + ones[lastTwoDigits % 10];
+                    }
+                }
+                // Handle single digits (1-9)
+                else if (lastTwoDigits > 0) {
+                    words += ones[lastTwoDigits];
+                }
+            }
+        
+            numToWord.innerText = words.trim();
+        }
+        
+        
+        
+        let oddOrEven = document.getElementById('oddOrEven')
+        oddOrEven.addEventListener('click', ()=> validateOddOrEven())
+
+        let factorial = document.getElementById('factorial')
+        factorial.addEventListener('click', ()=> factorialNumber())
+
+        let table = document.getElementById('table')
+        table.addEventListener('click', ()=> tableOfNumber())
+
+        let words = document.getElementById('words')
+        words.addEventListener('click', ()=> numToWord())
+
+    </script>
+</body>
+</html>
