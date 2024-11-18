@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country and Capital Selector</title>
+    <style>
+        /* General Page Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5a0a0; /* Light green background */
+            color: #000000;
+            margin: 20px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #ff0000; /* Dark green */
+        }
+
+        label {
+            font-size: 1.2em;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        select {
+            font-size: 1em;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        .capital {
+            font-size: 1.5em; /* Larger text for emphasis */
+            color: #0008ff; /* Orange color */
+            font-weight: bold; /* Bold font style */
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Country and Capital Selector</h1>
+    <label for="country-select">Pick a country:</label>
+    <select id="country-select">
+        <option value="">-- Select a Country --</option>
+        <option value="India">India</option>
+        <option value="Japan">Japan</option>
+        <option value="United States">United States</option>
+        <option value="South Korea">South Korea</option>
+        <option value="China">China</option>
+    </select>
+    <div id="capital-display" class="capital"></div>
+
+    <script>
+        // Object containing countries and their capitals
+        const countriesAndCapitals = {
+            "India": "New Delhi",
+            "Japan": "Tokyo",
+            "United States": "Washington, D.C.",
+            "South Korea": "Seoul",
+            "China": "Beijing"
+        };
+
+        // DOM elements
+        const countrySelect = document.getElementById('country-select');
+        const capitalDisplay = document.getElementById('capital-display');
+
+        // Event listener for the select box
+        countrySelect.addEventListener('change', function () {
+            const selectedCountry = countrySelect.value;
+            capitalDisplay.textContent = countriesAndCapitals[selectedCountry] || ''; // Update the capital display
+        });
+    </script>
+</body>
+</html>
