@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width,
+iniƟal-scale=1.0">
+ <title>Object ProperƟes in Reverse</title>
+ <style>
+ body {
+ font-family: Arial, sans-serif;
+ background-color: #f4f4f9;
+ margin: 0;
+ padding: 20px;
+ text-align: center;
+ }
+ h1 {
+ color: #333;
+ }
+ .output-container {
+ margin-top: 20px; 
+ padding: 10px;
+ border: 1px solid #ccc;
+ border-radius: 8px;
+ background-color: #fff;
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ display: inline-block;
+ text-align: leŌ;
+ }
+ .property {
+ font-size: 1.1em;
+ margin: 5px 0;
+ color: #007BFF;
+ font-weight: bold;
+ }
+ .value {
+ font-size: 1em;
+ color: #333;
+ }
+ </style>
+</head> 
+<body>
+ <h1>Object ProperƟes in Reverse</h1>
+ <div id="output" class="output-container"></div>
+ <script>
+ /**
+ * Iterate over all properƟes of an object in reverse order
+ * and execute a callback for each property.
+ *
+ * @param {Object} obj - The object to iterate over.
+ * @param {FuncƟon} callback - The funcƟon to execute
+for each property. Receives key and value as arguments.
+ */
+ function iterateProperƟesReverse(obj, callback) {
+ // Get all property keys of the object
+ const keys = Object.keys(obj);
+ // Iterate over the keys in reverse order
+ for (let i = keys.length - 1; i >= 0; i--) {
+ const key = keys[i];
+ const value = obj[key]; 
+ callback(key, value); // Execute the callback with the
+
+ }
+ }
+ // Object to test
+ const sampleObject = {
+ name: "Alice",
+ age: 30,
+ occupaƟon: "Engineer",
+ country: "USA"
+ };
+ // Callback funcƟon to display results on the page
+ function displayKeyValue(key, value) {
+ const output = document.getElementById('output');
+ const propertyElement =
+document.createElement('div');
+ propertyElement.innerHTML = `
+ <span class="property">Key:</span> ${key}<br>
+ <span class="value">Value:</span> ${value}
+ `; 
+ output.appendChild(propertyElement);
+ }
+ // Run the funcƟon
+ iterateProperƟesReverse(sampleObject,
+displayKeyValue);
+ </script>
+</body>
+</html>
