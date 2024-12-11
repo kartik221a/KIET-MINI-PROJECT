@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Async to Promise Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+    .container {
+      background-color: #f5f5f5;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 10px 0;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #result {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Async to Promise Demo</h2>
+    <button onclick="runAsyncOperation()">Run Async Operation</button>
+    <div id="result"></div>
+  </div>
+  <script>
+    // Traditional async function using callbacks
+    function traditionalAsync(callback) {
+      setTimeout(() => {
+        const result = "Operation completed!";
+        callback(result);
+      }, 2000);
+    }
+
+    // Converting to Promise
+    function promisifiedOperation() {
+      return new Promise((resolve, reject) => {
+        try {
+          traditionalAsync((result) => {
+            resolve(result);
+          });
+        } catch (error) {
+          reject(error);
+        }
+      });
+    }
+
+    // Example of using the promise
+    async function runAsyncOperation() {
+      const resultDiv = document.getElementById('result');
+      resultDiv.textContent = 'Operation starting...';
+
+      try {
+        const result = await promisifiedOperation();
+        resultDiv.textContent = result;
+      } catch (error) {
+        resultDiv.textContent = `Error: ${error.message}`;
+      }
+    }
+
+    // Alternative way using .then()
+    function runWithThen() {
+      const resultDiv = document.getElementById('result');
+      resultDiv.textContent = 'Operation starting...';
+      promisifiedOperation()
+        .then(result => {
+          resultDiv.textContent = result;
+        })
+        .catch(error => {
+          resultDiv.textContent = `Error: ${error.message}`;
+        });
+    }
+  </script>
+</body>
+</html>
